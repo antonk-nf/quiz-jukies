@@ -55,6 +55,12 @@ This document summarizes the project, current code, design system, and the next 
   2) Enable Pages → Source: GitHub Actions in repo settings (if not already).
   3) Access Solo: `https://<user>.github.io/<repo>/solo` (JSON loaded from `<base>/quiz.json`).
 
+## Optional: Encrypted Solo Quiz
+- Use `npm run encrypt:quiz` with a strong password. This reads `public/quiz.json` and writes `public/quiz.enc` (AES-256-GCM, PBKDF2-SHA256 with 250k iterations). Keep the password out of the repo.
+- At runtime, Solo detects `quiz.enc` and prompts for the password to decrypt client-side via Web Crypto. If `quiz.enc` is absent, it falls back to `quiz.json`.
+- For better secrecy, do not deploy `public/quiz.json` alongside `public/quiz.enc`.
+- Security note: client-side decryption prevents casual inspection but cannot protect against determined reverse engineering.
+
 
 ## Design System
 - Colors (Streamberry / Netflix-like):

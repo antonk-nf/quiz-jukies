@@ -71,6 +71,19 @@ Solo deploy readiness (GitHub Pages)
 - Workflow: `.github/workflows/pages.yml` builds and deploys on push to main/master.
 - Commands: `npm run build:pages` for local build with fallback file.
 
+Deployment (GitHub Pages)
+
+- Push to default branch (main/master) to trigger Pages workflow.
+- Verify in GitHub → Actions: both build and deploy jobs succeed.
+- Enable Pages (one-time): Settings → Pages → Source: GitHub Actions.
+- Open site:
+  - Base: https://AnthonyKot.github.io/quiz-jukies/
+  - Solo: https://AnthonyKot.github.io/quiz-jukies/solo
+- Troubleshooting:
+  - 404 on deep links: ensure `dist/404.html` exists (workflow copies it).
+  - Wrong base path: confirm `VITE_BASE=/quiz-jukies/` in workflow; router uses BASE_URL.
+  - Private repo: ensure Pages is allowed for your plan or make repo public.
+
 Solo Styling Enhancements
 
 - Components:
@@ -128,6 +141,14 @@ Files of interest
     - src/solo/soloEngine.ts
 - Public assets:
     - public/quiz.json
+    - public/quiz.enc (optional when using encryption)
+
+Encryption (optional for Solo)
+
+- Script: `npm run encrypt:quiz` (or `QUIZ_PASSWORD=... npm run encrypt:quiz`).
+- Input: `public/quiz.json` → Output: `public/quiz.enc` (AES-256-GCM, PBKDF2-SHA256 250k iters).
+- Runtime: Solo auto-detects `quiz.enc` and asks for a password to unlock; falls back to `quiz.json` if no encrypted file.
+- Tip: remove `quiz.json` from deployment if you want only the encrypted payload served.
 
 Repo hygiene
 
