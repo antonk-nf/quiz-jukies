@@ -2,6 +2,9 @@
 
 This plan outlines a mobile‑first, browser‑based quiz game similar to Kahoot, focused on UI-only MVP with mocked services and client-side state. Visual styling follows a Netflix‑like dark theme under the playful brand name "Streamberry" (placeholder logo). We optimize for quick iteration and future plug‑in of a simple realtime backend (e.g., Supabase/Ably/Pusher) without rewrites.
 
+Modes supported:
+- Mode A — Hosted Multiplayer: admin hosts a live quiz; players join via PIN; synchronized flow; leaderboard at end.
+- Mode B — Solo Client‑Only: static site loads a predefined quiz JSON, shows a start screen, runs a single‑player flow, and stores results in localStorage, with a per‑question correctness summary on the results page.
 ## 1) Scope & Assumptions
 - Auth: OAuth-style sign-in (mocked) + user-chosen nickname per account.
 - Roles: Single host/admin per quiz; many players.
@@ -120,6 +123,10 @@ export interface LeaderboardEntry {
 - `/join` Join Flow: enter PIN; if found, continue to `/play/:sessionId`.
 - `/play/:sessionId` Player View: waiting room → answer screens.
 - `/play/:sessionId/done` Player end state: personal result + link to leaderboard.
+- `/solo` Solo Start: loads quiz JSON, shows title and Start (no auth).
+- `/solo/play` Solo Play: single‑player question flow.
+- `/solo/results` Solo Results: total score + per‑question correctness summary.
+ 
 
 Note: In MVP, sessions exist only in the host tab; other tabs read via simulated realtime.
 
@@ -151,6 +158,10 @@ Note: In MVP, sessions exist only in the host tab; other tabs read via simulated
 - End & Leaderboard:
   - Host can end anytime; all clients move to results screen; show ordered leaderboard with scores; each user also sees personal result summary.
 
+- Solo Mode (client‑only):
+  - Start: on `/solo`, display quiz title, number of questions, and a Start button (no auth, no PIN).
+  - Play: single player answers each question; allow a single answer; optional timer may be added later.
+  - Results: show total score and a detailed per‑question summary with correct/incorrect indication and the correct option highlighted.
 ## 7) Timing & Scoring
 - Base: +1 point if correct; 0 otherwise.
 - Bonus (config, initially disabled):
@@ -274,6 +285,11 @@ The following steps are ordered and scoped for a coding agent to execute increme
    - Optimize mobile layouts (safe areas, sticky actions, tap sizes).
    - Output: stable, demo‑ready MVP.
 
+12. Solo Mode (client‑only)
+   - Add routes `/solo`, `/solo/play`, `/solo/results`.
+   - Load `public/quiz.json`; fallback to embedded sample.
+   - Implement single‑player flow with localStorage persistence; show per‑question summary on results.
+   - Output: static deployable solo quiz flow (e.g., GitHub Pages).
 ## 13) Acceptance Criteria (MVP)
 - User can sign in (mock), set nickname; state persists across reloads.
 - Host can create a session from a demo quiz, see 6‑digit PIN and lobby.
@@ -283,6 +299,7 @@ The following steps are ordered and scoped for a coding agent to execute increme
 - Host can advance through all questions and end the quiz.
 - All clients show final leaderboard; personal results visible to each player.
 - Per‑question correctness is not revealed in MVP; only final leaderboard is shown (future toggle).
+- Solo Mode: User can open `/solo`, start a predefined quiz from JSON, answer questions, and see a results page with total score and per‑question correctness summary. Progress/resume stored locally.
 
 ## 14) Risks & Limitations
 - No real backend: multi‑device play not supported; only multi‑tab simulation.

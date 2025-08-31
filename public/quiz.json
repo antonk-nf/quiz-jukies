@@ -1,0 +1,41 @@
+{
+  "id": "solo-sample-1",
+  "title": "Streamberry Solo Sample Quiz",
+  "description": "A quick demo quiz for solo mode.",
+  "questions": [
+    {
+      "id": "q1",
+      "text": "What is the capital of France?",
+      "options": [
+        { "id": "A", "text": "Paris" },
+        { "id": "B", "text": "Lyon" },
+        { "id": "C", "text": "Marseille" },
+        { "id": "D", "text": "Nice" }
+      ],
+      "correctOptionId": "A"
+    },
+    {
+      "id": "q2",
+      "text": "Which planet is known as the Red Planet?",
+      "options": [
+        { "id": "A", "text": "Venus" },
+        { "id": "B", "text": "Mars" },
+        { "id": "C", "text": "Jupiter" },
+        { "id": "D", "text": "Saturn" }
+      ],
+      "correctOptionId": "B"
+    },
+    {
+      "id": "q3",
+      "text": "What is the largest ocean on Earth?",
+      "options": [
+        { "id": "A", "text": "Indian Ocean" },
+        { "id": "B", "text": "Arctic Ocean" },
+        { "id": "C", "text": "Pacific Ocean" },
+        { "id": "D", "text": "Atlantic Ocean" }
+      ],
+      "correctOptionId": "C"
+    }
+  ]
+}
+

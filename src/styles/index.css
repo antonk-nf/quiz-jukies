@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-sb-bg text-sb-text font-sans;
+}
+
+.card {
+  @apply bg-sb-surface rounded-xl shadow-card;
+}
+
+.card-interactive {
+  @apply relative overflow-hidden rounded-xl shadow-card transition duration-fast;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+}
+.card-interactive:hover { @apply -translate-y-0.5; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+.card-interactive:active { @apply translate-y-0; }
+.card-interactive:focus-within { box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.25), 0 8px 24px rgba(0,0,0,0.5); }
+
+.section-heading {
+  @apply text-xl font-extrabold tracking-tight;
+  position: relative;
+  display: inline-block;
+}
+.section-heading::after {
+  content: '';
+  display: block;
+  height: 3px;
+  width: 64px;
+  background: linear-gradient(90deg, #E50914 0%, rgba(229,9,20,0.0) 100%);
+  border-radius: 2px;
+  margin-top: 6px;
+}
+
+.btn-base {
+  @apply inline-flex items-center justify-center font-medium rounded-xl transition duration-fast select-none border border-transparent shadow-sm focus:outline-none;
+}
+
+/* Primary: solid Streamberry red with subtle gradient and stronger focus ring */
+.btn-primary {
+  @apply btn-base text-white;
+  background: linear-gradient(180deg, #E71B23 0%, #E50914 60%, #B81D24 100%);
+  border-color: rgba(229, 9, 20, 0.5);
+}
+.btn-primary:hover { filter: brightness(1.05); }
+.btn-primary:active { filter: brightness(0.98); }
+.btn-primary:focus { box-shadow: 0 0 0 4px rgba(229, 9, 20, 0.25); }
+
+/* Secondary: elevated surface pill with subtle border */
+.btn-secondary {
+  @apply btn-base text-white bg-white/10 border-white/20;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.14); }
+.btn-secondary:active { background: rgba(255,255,255,0.10); }
+.btn-secondary:focus { box-shadow: 0 0 0 4px rgba(255,255,255,0.12); }
+
+/* Ghost: minimal, text-like */
+.btn-ghost { @apply btn-base text-white/80; }
+.btn-ghost:hover { background: rgba(255,255,255,0.06); }
+.btn-ghost:active { background: rgba(255,255,255,0.04); }
+.btn-ghost:focus { box-shadow: 0 0 0 4px rgba(255,255,255,0.10); }
+
+/* Danger: outline red (distinct from primary) */
+.btn-danger {
+  @apply btn-base bg-transparent text-red-400 border-red-600;
+}
+.btn-danger:hover { background: rgba(220,38,38,0.12); }
+.btn-danger:active { background: rgba(220,38,38,0.18); }
+.btn-danger:focus { box-shadow: 0 0 0 4px rgba(220,38,38,0.25); }
+
+.btn-sm { @apply h-9 px-3 text-sm; }
+.btn-md { @apply h-11 px-4 text-base; }
+.btn-lg { @apply h-12 px-6 text-lg; }
+
+button:disabled { @apply opacity-50 pointer-events-none; }
+
+.textfield {
+  @apply w-full h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-sb-primary/70 focus:border-sb-primary/70;
+}
+
+.textfield-error { @apply border-red-500 focus:ring-red-500; }
